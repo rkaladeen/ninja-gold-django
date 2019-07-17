@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ninja Money</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'appone/css/style.css' %}">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron row">
+      <div class="col">
+        <img src="{% static 'appone/images/ninja.png' %}" class="ninja-logo float-left" alt="ninja">
+      </div>
+      
+      <div class="col">
+        <fieldset disabled>
+          <div class="form-group ml-5 mt-3">
+            <h1>Ninja Gold</h1>
+            <label for="gold-count">Your Gold:</label>
+            <input type="text" id="gold-count" class="form-control btn-warning text-center" placeholder="{{request.session.gold}}">
+          </div>
+        </fieldset>
+      </div>
+  
+    </div>
+
+    <div class="row">
+
+      <div class="card col" style="width: 18rem;">
+        <img src="{% static 'appone/images/farm.jpg' %}" class="card-img-top cus-img-size" alt="farm">
+        <div class="card-body">
+          <h5 class="card-title">Farm</h5>
+          <p class="card-text">Earns 10-20 golds</p>
+          <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="select" value="farm">
+            <button class="btn btn-warning" type="submit">Find Gold!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card col" style="width: 18rem;">
+        <img src="{% static 'appone/images/cave.jpg' %}" class="card-img-top cus-img-size" alt="cave">
+        <div class="card-body">
+          <h5 class="card-title">Cave</h5>
+          <p class="card-text">Earns 5-10 golds</p>
+          <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="select" value="cave">
+            <button class="btn btn-warning" type="submit">Find Gold!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card col" style="width: 18rem;">
+        <img src="{% static 'appone/images/house.jpeg' %}" class="card-img-top cus-img-size" alt="house">
+        <div class="card-body">
+          <h5 class="card-title">House</h5>
+          <p class="card-text">Earns 2-5 golds</p>
+          <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="select" value="house">
+            <button class="btn btn-warning" type="submit">Find Gold!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card col" style="width: 18rem;">
+        <img src="{% static 'appone/images/casino.jpg' %}" class="card-img-top cus-img-size" alt="casino">
+        <div class="card-body">
+          <h5 class="card-title">Casino</h5>
+          <p class="card-text">Earns/takes 0-50 golds</p>
+          <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="select" value="casino">
+            <button class="btn btn-warning" type="submit">Find Gold!</button>
+          </form>
+        </div>
+      </div>
+    <!--End of Card Row-->
+    </div>
+
+    <div class="jumbotron row mt-5">
+      <form>
+        <h4>Activity:</h4>
+        <div class="activity-container overflow-auto">
+          {% for val in request.session.message reversed %}
+            {{val|safe}}
+          {% endfor %}
+        </div>
+      </form>  
+    </div>
+
+    <a href="/" role="button" class="btn btn-warning btn-block btn-lg">Restart Game</a>
+
+  <!--End of Container-->
+  </div>
+</body>
+</html>
